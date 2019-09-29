@@ -10,7 +10,11 @@ class VideoContentWidget extends StatefulWidget {
   final bool autoplay;
   final double volume;
 
-  VideoContentWidget({this.url, this.fromNetwork = true, this.autoplay = true, this.volume = 1.0});
+  VideoContentWidget(
+      {this.url,
+      this.fromNetwork = true,
+      this.autoplay = true,
+      this.volume = 1.0});
 
   @override
   _VideoContentWidgetState createState() => _VideoContentWidgetState();
