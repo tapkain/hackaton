@@ -21,7 +21,7 @@ def get_votes(**kwargs):
 #child = pexpect.spawn("su")
 #child.logfile_read = sys.stdout
 #subprocess.call(['cleos', 'wallet', 'open'])
-#subprocess.call(['cleos', 'wallet', 'unlock'])
+subprocess.call(['cleos', 'wallet', 'unlock', '--password', 'PASS_HERE'])
 
 posts = get_votes(per_page=10)
 print(len(posts))
