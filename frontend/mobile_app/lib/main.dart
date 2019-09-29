@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widgets/widgets.dart';
+import 'repo/repo.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,12 +28,23 @@ enum FilterEnum {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  PaginatedListController<int> _listController;
+  PaginatedListController<PostModel> _listController;
   var filter = FilterEnum.newPosts;
+  final api = WebApi();
+
+  String postUrl(int page) {
+    var baseUrl = 'http://84590504.ngrok.io/api/post/';
+    return baseUrl;
+  }
 
   @override
   void initState() {
-    _listController = PaginatedListController();
+    Future.microtask(() {
+      _listController = PaginatedListController<PostModel>(
+        fetchPage: (page, refresh) => api.post.fetchMany(postUrl(page)),
+      );
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -60,7 +72,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _filterWidget() {}
 
-  Widget _buildListItem(BuildContext context, int item) {
+  Widget _buildListItem(BuildContext context, PostModel item) {
+    final content = item.contents.first;
+    final url = 'https://cdn.newlife.ai/${content.hash}';
+    if (content.type == ContentType.image) {
+      return ImageContentWidget(
+        url: url,
+      );
+    }
 
+    return VideoContentWidget(
+      url: url,
+    );
   }
 }
