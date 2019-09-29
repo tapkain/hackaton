@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+
 typedef PaginatedListPredicate<T> = bool Function(T value);
 
 abstract class PaginatedListEvent<T> {}
